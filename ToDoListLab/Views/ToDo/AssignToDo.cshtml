@@ -1,0 +1,39 @@
+﻿@model ToDo
+
+<p>Name: @Model.Name</p>
+<p>Description: @Model.Description</p>
+<p>Hours Needed: @Model.HoursNeeded</p>
+<p>
+    Employee Responsible:
+    @Model.EmployeeList.First(x => x.Id == @Model.AssignedTo).Name
+</p>
+<p>Hours Required: @Model.HoursNeeded</p>
+<p>
+    Task Completed:
+    @if (Model.IsCompleted)
+    {
+        <span>Y</span>
+    }
+    else
+    {
+        <span>N</span>
+    }
+</p>
+@using (@Html.BeginForm("AssignToDo", "ToDo", FormMethod.Post))
+{
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <span>Assign Task To</span>
+    <select name="AssignedTo">
+        <option value="@Model.EmployeeList.First(x => x.Id == @Model.AssignedTo).Id">@Model.EmployeeList.First(x => x.Id == @Model.AssignedTo).Name</option>
+        @foreach (Employee e in Model.EmployeeList)
+        {
+            if (e.Id != Model.AssignedTo)
+            {
+                <option value="@e.Id">@e.Name</option>
+            }
+
+        }
+    </select>
+    <input type="submit" , value="Submit" />
+}

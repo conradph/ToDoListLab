@@ -1,0 +1,14 @@
+﻿@model IEnumerable<Employee>
+
+<h2>Employees</h2>
+
+@foreach(var e in Model)
+            {
+<div style="border: 5px black solid">
+    <p>Name: @e.Name</p>
+    <p>Hours: @e.Hours</p>
+    <p>Title: @e.Title</p>
+    <a asp-action="Edit" asp-controller="Employee" asp-route-id="@e.Id"><p>Edit @e.Name</p></a>
+    <a asp-action="Delete" asp-controller="Employee" asp-route-id="@e.Id"><p>Delete @e.Name</p></a>
+</div>
+            }

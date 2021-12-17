@@ -1,0 +1,29 @@
+﻿@using System.Linq;
+@model IEnumerable<ToDo>
+
+
+<h2>Tasks To Do:</h2>
+
+@foreach (var t in Model)
+{
+<div style="border: 5px black solid">
+    <p>Name: @t.Name</p>
+    <p>Description: @t.Description</p>
+    <p>Employee Responsible: 
+    @t.EmployeeList.First(x => x.Id == t.AssignedTo).Name</p>
+    <p>Hours Required: @t.HoursNeeded</p>
+    <p>
+        Task Completed:
+        @if (t.IsCompleted)
+        {
+        <span>Y</span>
+    }
+    else
+    {
+        <span>N</span>
+    }
+        </p>
+        <a asp-action="AssignToDo" asp-controller="ToDo" asp-route-id="@t.id" >Assign @t.Name</a>
+        <a asp-action="MarkComplete" asp-controller="ToDo" asp-route-id="@t.id">Mark @t.Name Complete</a>
+    </div>
+}
